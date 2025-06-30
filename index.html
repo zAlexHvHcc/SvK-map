@@ -4,67 +4,121 @@
   <meta charset="UTF-8">
   <title>Mapa SVK</title>
   <style>
-    body {
-      background-color: #000;
+    * {
       margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: radial-gradient(#0f0f0f, #000000);
+      overflow-x: hidden;
       font-family: monospace;
-      color: #fff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      color: white;
+      text-align: center;
+      height: 100vh;
     }
 
     h1 {
-      margin: 20px 0;
-      font-size: 24px;
-      text-shadow: 0 0 10px red;
+      font-size: 28px;
+      margin: 20px 0 10px 0;
+      color: #ff0000;
+      text-shadow: 0 0 5px red, 0 0 10px red;
+    }
+
+    #estrellas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .estrella {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: white;
+      border-radius: 50%;
+      opacity: 0.8;
+      animation: brillar 3s infinite ease-in-out;
+    }
+
+    @keyframes brillar {
+      0%, 100% { opacity: 0.2; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.5); }
     }
 
     #mapa-container {
       position: relative;
       overflow: hidden;
+      max-width: 90vw;
+      max-height: 75vh;
+      margin: 20px auto;
       border: 2px solid red;
-      max-width: 95vw;
-      max-height: 90vh;
+      box-shadow: 0 0 20px red;
+      z-index: 1;
     }
 
     #mapa {
       width: 100%;
       height: auto;
-      transition: transform 0.3s ease;
+      transition: transform 0.4s ease-in-out;
     }
 
     .botones {
-      margin-top: 15px;
+      margin-top: 10px;
+      z-index: 2;
+      position: relative;
     }
 
     button {
-      background-color: #111;
-      border: 1px solid #f00;
-      color: white;
+      background-color: black;
+      border: 1px solid red;
+      color: red;
       font-size: 16px;
-      padding: 8px 12px;
+      padding: 8px 14px;
       margin: 0 5px;
       cursor: pointer;
+      box-shadow: 0 0 10px red;
+      transition: 0.2s;
     }
 
     button:hover {
-      background-color: #300;
+      background-color: red;
+      color: black;
+    }
+
+    footer {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #999;
+      z-index: 2;
+      position: relative;
     }
   </style>
 </head>
 <body>
-  <h1>𝕾𝖊𝖛𝖊𝖓𝕶𝖎𝖓𝖌𝖘 𝕸𝖆𝖕 🗺️</h1>
+  <div id="estrellas"></div>
+
+  <h1>✪ 𝕾𝖊𝖛𝖊𝖓𝕶𝖎𝖓𝖌𝖘 𝕯𝖔𝖒𝖎𝖓𝖎𝖔 𝕸𝖆𝖕 ✪</h1>
 
   <div id="mapa-container">
     <img id="mapa" src="1751231229233.jpg" alt="Mapa SVK">
   </div>
 
   <div class="botones">
-    <button onclick="zoomIn()">➕ Zoom +</button>
-    <button onclick="zoomOut()">➖ Zoom -</button>
+    <button onclick="zoomIn()">🔍 Zoom +</button>
+    <button onclick="zoomOut()">🔎 Zoom -</button>
     <button onclick="resetZoom()">🔁 Reset</button>
   </div>
+
+  <footer>
+    Made for ⚔️ SVK • Mapa Privado • Solo Elite
+  </footer>
 
   <script>
     let zoomLevel = 1;
@@ -87,6 +141,16 @@
 
     function updateZoom() {
       mapa.style.transform = `scale(${zoomLevel})`;
+    }
+
+    // Crea estrellas animadas de fondo
+    const estrellas = document.getElementById("estrellas");
+    for (let i = 0; i < 75; i++) {
+      const star = document.createElement("div");
+      star.className = "estrella";
+      star.style.top = Math.random() * 100 + "%";
+      star.style.left = Math.random() * 100 + "%";
+      estrellas.appendChild(star);
     }
   </script>
 </body>
