@@ -1,26 +1,93 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
+  <meta charset="UTF-8">
   <title>Mapa SVK</title>
   <style>
     body {
       background-color: #000;
       margin: 0;
-      text-align: center;
-    }
-    img {
-      max-width: 100%;
-      height: auto;
-      margin-top: 20px;
-    }
-    h1 {
-      color: #fff;
       font-family: monospace;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h1 {
+      margin: 20px 0;
+      font-size: 24px;
+      text-shadow: 0 0 10px red;
+    }
+
+    #mapa-container {
+      position: relative;
+      overflow: hidden;
+      border: 2px solid red;
+      max-width: 95vw;
+      max-height: 90vh;
+    }
+
+    #mapa {
+      width: 100%;
+      height: auto;
+      transition: transform 0.3s ease;
+    }
+
+    .botones {
+      margin-top: 15px;
+    }
+
+    button {
+      background-color: #111;
+      border: 1px solid #f00;
+      color: white;
+      font-size: 16px;
+      padding: 8px 12px;
+      margin: 0 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #300;
     }
   </style>
 </head>
 <body>
   <h1>𝕾𝖊𝖛𝖊𝖓𝕶𝖎𝖓𝖌𝖘 𝕸𝖆𝖕 🗺️</h1>
-  <img src="1751231229233.jpg" alt="Mapa SVK">
+
+  <div id="mapa-container">
+    <img id="mapa" src="1751231229233.jpg" alt="Mapa SVK">
+  </div>
+
+  <div class="botones">
+    <button onclick="zoomIn()">➕ Zoom +</button>
+    <button onclick="zoomOut()">➖ Zoom -</button>
+    <button onclick="resetZoom()">🔁 Reset</button>
+  </div>
+
+  <script>
+    let zoomLevel = 1;
+    const mapa = document.getElementById("mapa");
+
+    function zoomIn() {
+      zoomLevel += 0.1;
+      updateZoom();
+    }
+
+    function zoomOut() {
+      zoomLevel = Math.max(0.1, zoomLevel - 0.1);
+      updateZoom();
+    }
+
+    function resetZoom() {
+      zoomLevel = 1;
+      updateZoom();
+    }
+
+    function updateZoom() {
+      mapa.style.transform = `scale(${zoomLevel})`;
+    }
+  </script>
 </body>
 </html>
